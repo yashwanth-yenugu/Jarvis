@@ -1,0 +1,9 @@
+{
+  "cSpell.words": ["fastify"],
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  }
+}
