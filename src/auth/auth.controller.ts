@@ -10,6 +10,12 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @SkipAuth()
+  @Post('sign-up')
+  signUp(@Body() signInDto: SignInDTO) {
+    return this.authService.signUp(signInDto.username, signInDto.password);
+  }
+
+  @SkipAuth()
   @Post('login')
   signIn(@Body() signInDto: SignInDTO) {
     return this.authService.signIn(signInDto.username, signInDto.password);

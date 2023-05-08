@@ -19,4 +19,11 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload),
     };
   }
+
+  async signUp(username: string, pass: string) {
+    await this.usersService.create(username, pass);
+    return {
+      success: true,
+    };
+  }
 }
