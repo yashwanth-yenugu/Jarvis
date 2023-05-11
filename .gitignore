@@ -33,3 +33,6 @@ lerna-debug.log*
 # IDE - VSCode
 !.vscode/tasks.json
 !.vscode/launch.json
+
+# SSL
+cacert.pem

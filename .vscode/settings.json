@@ -1,8 +1,5 @@
 {
-  "cSpell.words": [
-    "fastify",
-    "nestjs"
-  ],
+  "cSpell.words": ["fastify", "nestjs", "typeorm"],
   "editor.formatOnSave": true,
   "[typescript]": {
     "editor.codeActionsOnSave": {

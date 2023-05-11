@@ -1,16 +1,33 @@
-import { Injectable } from '@nestjs/common';
-
-export type User = any;
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/entity/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
-  private readonly users = [];
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+  async findOne(userName: string): Promise<User | undefined> {
+    return await this.usersRepository.findOneBy({ userName });
   }
 
-  async create(username: string, password: string) {
-    this.users.push({ username, password, userId: this.users.length + 1 });
+  async saveRefreshToken(token: string, userName: string) {
+    this.usersRepository.update({ userName }, { refreshTokens: token });
+  }
+
+  async create(userName: string, password: string) {
+    try {
+      const userEntity = this.usersRepository.create({ userName, password });
+      const res = await this.usersRepository.save(userEntity);
+      return { userName: res.userName, createdAt: res.createdAt };
+    } catch (error) {
+      if (error.errno === 1062) {
+        throw new BadRequestException('Username not available');
+      }
+      throw new BadRequestException(error.code);
+    }
   }
 }
