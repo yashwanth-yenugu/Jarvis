@@ -22,9 +22,9 @@ import { UsersModule } from './users/users.module';
       entities: [User],
       synchronize: false,
       ssl: {
-        ca: fs.readFileSync(`${process.env.SSL_FILE_PATH}`),
+        ca: fs.readFileSync(process.cwd() + '/cacert.pem'),
       },
-      verboseRetryLog: true,
+      logging: JSON.parse(process.env.DB_LOGGING),
     }),
     UsersModule,
   ],
