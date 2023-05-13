@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Post, Request } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { SkipAuth } from './auth.decorator';
 import { AuthService } from './auth.service';
-import { SignInDTO, refreshTokenDTO } from './dto/signIn';
+import { LogOutDTO, RefreshTokenDTO, SignInDTO } from './dto/signIn';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -23,12 +23,13 @@ export class AuthController {
 
   @SkipAuth()
   @Post('refresh')
-  refreshToken(@Body() body: refreshTokenDTO) {
+  refreshToken(@Body() body: RefreshTokenDTO) {
     return this.authService.refreshToken(body.refreshToken);
   }
 
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  @SkipAuth()
+  @Post('logout')
+  logout(@Body() body: LogOutDTO) {
+    return this.authService.logout(body.userName);
   }
 }

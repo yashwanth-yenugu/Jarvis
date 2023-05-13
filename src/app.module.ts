@@ -5,10 +5,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { User } from './entity/user.entity';
+import { HealthModule } from './health/health.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    HealthModule,
     AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -22,6 +24,7 @@ import { UsersModule } from './users/users.module';
       ssl: {
         ca: fs.readFileSync(`${process.env.SSL_FILE_PATH}`),
       },
+      verboseRetryLog: true,
     }),
     UsersModule,
   ],

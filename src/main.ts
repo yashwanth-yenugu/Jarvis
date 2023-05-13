@@ -17,7 +17,6 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Auth Server')
     .setVersion('1.0')
-    .addTag('Auth')
     .addBearerAuth()
     .addSecurityRequirements('bearer')
     .build();

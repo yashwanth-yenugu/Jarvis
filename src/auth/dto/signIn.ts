@@ -12,8 +12,14 @@ export class SignInDTO {
   password: string;
 }
 
-export class refreshTokenDTO {
+export class RefreshTokenDTO {
   @ApiProperty()
   @IsNotEmpty()
   refreshToken: string;
+}
+
+export class LogOutDTO {
+  @ApiProperty()
+  @IsNotEmpty()
+  userName: string;
 }

@@ -18,6 +18,10 @@ export class UsersService {
     this.usersRepository.update({ userName }, { refreshTokens: token });
   }
 
+  async deleteRefreshToken(userName: string) {
+    this.usersRepository.update({ userName }, { refreshTokens: null });
+  }
+
   async create(userName: string, password: string) {
     try {
       const userEntity = this.usersRepository.create({ userName, password });
@@ -25,9 +29,9 @@ export class UsersService {
       return { userName: res.userName, createdAt: res.createdAt };
     } catch (error) {
       if (error.errno === 1062) {
-        throw new BadRequestException('Username not available');
+        return new BadRequestException('Username not available');
       }
-      throw new BadRequestException(error.code);
+      return new BadRequestException(error.code);
     }
   }
 }
